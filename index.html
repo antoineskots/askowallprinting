@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ASKO Wall Printing — Montreal Wall Printing Studio</title>
+  <meta name="description"
+    content="ASKO Wall Printing is a Montreal-based wall printing studio specializing in outdoor murals, indoor walls, and custom décor. Transform your space with bold, large-format prints.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="images/favicon.png" type="image/png">
+</head>
+
+<body>
+
+  <div class="site-wrapper">
+
+    <!-- ===== STREAKS — spans full page ===== -->
+    <div class="hero-cmyk" id="heroCmyk"></div>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav id="navbar">
+      <div class="nav-inner">
+        <a href="#hero" class="nav-logo"><img src="images/logo.png" alt="ASKO Wallprinting"></a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#services" onclick="closeNav()" data-i18n="navServices">Services</a></li>
+          <li><a href="#portfolio" onclick="closeNav()" data-i18n="navPortfolio">Portfolio</a></li>
+          <li><a href="#process" onclick="closeNav()" data-i18n="navProcess">Process</a></li>
+          <li><a href="#faq" onclick="closeNav()">FAQ</a></li>
+          <li><a href="#contact" onclick="closeNav()" data-i18n="navContact">Contact</a></li>
+        </ul>
+        <div class="nav-right">
+          <!-- Language Picker -->
+          <div class="lang-picker" id="langPicker">
+            <button class="lang-btn" id="langBtn" type="button" aria-label="Select language">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+              <span id="langLabel">EN</span>
+              <svg viewBox="0 0 24 24" style="width:10px;height:10px">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+            <div class="lang-dropdown">
+              <div class="lang-option active" data-lang="en">
+                <span class="lang-flag">EN</span> English
+              </div>
+              <div class="lang-option" data-lang="fr">
+                <span class="lang-flag">FR</span> Français
+              </div>
+            </div>
+          </div>
+          <a href="#contact" class="nav-cta nav-cta-desktop" data-i18n="navCta">Get a Quote</a>
+        </div>
+        <div class="nav-toggle" id="navToggle" onclick="toggleNav()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section id="hero">
+      <div class="container hero-content">
+        <div class="hero-text">
+          <h1 class="hero-headline reveal"><span data-i18n="heroHeadline1">YOUR WALLS.</span><br><span class="accent"
+              data-i18n="heroHeadline2">YOUR VISION.</span></h1>
+          <p class="hero-sub reveal" style="transition-delay:0.1s" data-i18n="heroSub">Large-format wall printing for
+            spaces that demand
+            attention. Based in Montreal, built for bold ideas.</p>
+
+          <div class="hero-btns reveal" style="transition-delay:0.3s">
+            <a href="#contact" class="btn-primary" data-i18n="heroBtnPrimary">Get a Free Quote <span>→</span></a>
+            <a href="#portfolio" class="btn-secondary" data-i18n="heroBtnSecondary">View Our Work</a>
+          </div>
+        </div>
+        <div class="hero-reel reveal" style="transition-delay:0.2s">
+          <video id="heroReelEN" class="hero-reel-video active" src="images/REELENG_OUTROLESS.mp4" muted autoplay loop
+            playsinline></video>
+          <video id="heroReelFR" class="hero-reel-video" src="images/REELFRA_OUTROLESS.mp4" muted loop
+            playsinline></video>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TICKER ===== -->
+    <div id="ticker">
+      <div class="ticker-track" id="tickerTrack">
+        <span class="ticker-item">Restaurants</span>
+        <span class="ticker-item">Offices</span>
+        <span class="ticker-item">Retail</span>
+        <span class="ticker-item">Homes</span>
+        <span class="ticker-item">Hotels</span>
+        <span class="ticker-item">Gyms</span>
+        <span class="ticker-item">Galleries</span>
+        <span class="ticker-item">Cafés</span>
+        <span class="ticker-item">Schools</span>
+        <span class="ticker-item">Clinics</span>
+        <span class="ticker-item">Studios</span>
+        <span class="ticker-item">Festivals</span>
+        <!-- Duplicate for seamless loop -->
+        <span class="ticker-item">Restaurants</span>
+        <span class="ticker-item">Offices</span>
+        <span class="ticker-item">Retail</span>
+        <span class="ticker-item">Homes</span>
+        <span class="ticker-item">Hotels</span>
+        <span class="ticker-item">Gyms</span>
+        <span class="ticker-item">Galleries</span>
+        <span class="ticker-item">Cafés</span>
+        <span class="ticker-item">Schools</span>
+        <span class="ticker-item">Clinics</span>
+        <span class="ticker-item">Studios</span>
+        <span class="ticker-item">Festivals</span>
+      </div>
+    </div>
+
+    <!-- ===== SERVICES ===== -->
+    <section id="services">
+      <div class="container">
+        <p class="section-label reveal" data-i18n="servicesLabel">What We Do</p>
+        <h2 class="section-title reveal" data-i18n="servicesTitle">Services</h2>
+
+        <!-- Value Proposition -->
+        <div class="value-prop">
+          <div class="value-prop-main">
+            <div class="value-prop-intro">
+              <h3 class="value-prop-headline" data-i18n="valuePropHeadline">Transform blank walls<br>into <span
+                  class="accent">visual statements</span></h3>
+              <p class="value-prop-sub" data-i18n="valuePropSub">We print directly on walls — no vinyl, no seams. Just
+                durable, high-quality, custom mural solutions that make an impact.</p>
+            </div>
+            <div class="value-prop-benefits">
+              <div class="benefit-item reveal" style="transition-delay:0.05s">
+                <div class="benefit-icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 data-i18n="benefit1Title">Strong Visual Impact</h4>
+                  <p data-i18n="benefit1Desc">Bold, large-format prints that command attention and transform any
+                    environment.</p>
+                </div>
+              </div>
+              <div class="benefit-item reveal" style="transition-delay:0.1s">
+                <div class="benefit-icon">
+                  <svg viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="18" height="18" rx="2" />
+                    <line x1="12" y1="8" x2="12" y2="16" />
+                    <line x1="8" y1="12" x2="16" y2="12" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 data-i18n="benefit2Title">Clean, Modern Finish</h4>
+                  <p data-i18n="benefit2Desc">No seams, no peeling edges — just a seamless, premium result every time.
+                  </p>
+                </div>
+              </div>
+              <div class="benefit-item reveal" style="transition-delay:0.15s">
+                <div class="benefit-icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 data-i18n="benefit3Title">On-Site Installation</h4>
+                  <p data-i18n="benefit3Desc">Our crew comes to you — professional setup done in hours, not days.</p>
+                </div>
+              </div>
+              <div class="benefit-item reveal" style="transition-delay:0.2s">
+                <div class="benefit-icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 data-i18n="benefit4Title">Durable & Professional</h4>
+                  <p data-i18n="benefit4Desc">UV-protected, weather-resistant results built to withstand time and
+                    traffic.</p>
+                </div>
+              </div>
+              <div class="benefit-item reveal" style="transition-delay:0.25s">
+                <div class="benefit-icon">
+                  <svg viewBox="0 0 24 24">
+                    <polygon
+                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 data-i18n="benefit5Title">Fully Customized</h4>
+                  <p data-i18n="benefit5Desc">Every design and layout is tailored to your space, brand, and vision.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="services-grid">
+          <div class="service-card reveal" style="transition-delay:0.05s">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <line x1="3" y1="9" x2="21" y2="9" />
+                <line x1="9" y1="21" x2="9" y2="9" />
+              </svg>
+            </div>
+            <span class="service-tag" data-i18n="service1Tag">Exterior</span>
+            <h3 data-i18n="service1Title">Outdoor Murals</h3>
+            <p data-i18n="service1Desc">Weather-resistant, UV-protected prints that dominate any exterior wall. Built to
+              last seasons and turn
+              heads year-round.</p>
+          </div>
+          <div class="service-card reveal" style="transition-delay:0.15s">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+              </svg>
+            </div>
+            <span class="service-tag" data-i18n="service2Tag">Interior</span>
+            <h3 data-i18n="service2Title">Indoor Walls</h3>
+            <p data-i18n="service2Desc">Transform lobbies, hallways, and workspaces with crisp, high-resolution wall
+              graphics that reflect your
+              brand's identity.</p>
+          </div>
+          <div class="service-card reveal" style="transition-delay:0.25s">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24">
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            </div>
+            <span class="service-tag" data-i18n="service3Tag">Bespoke</span>
+            <h3 data-i18n="service3Title">Custom Décor</h3>
+            <p data-i18n="service3Desc">From textured finishes to artistic one-offs — we create fully custom wall décor
+              pieces tailored to your
+              space and taste.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+    <section id="portfolio">
+      <div class="container">
+        <p class="section-label reveal" data-i18n="portfolioLabel">Selected Work</p>
+        <h2 class="section-title reveal" data-i18n="portfolioTitle">Portfolio</h2>
+        <div class="portfolio-grid">
+          <div class="portfolio-item reveal">
+            <img src="images/portfolio-1.jpg" alt="Lion King mural being printed on wall" loading="lazy">
+            <div class="portfolio-overlay">
+              <span data-i18n="portfolio1Tag">Custom Mural</span>
+              <h4 data-i18n="portfolio1Title">Children's Room Mural</h4>
+              <p data-i18n="portfolio1Desc">A vibrant Lion King scene printed directly onto the wall — bringing
+                imagination to life in a child's bedroom.</p>
+            </div>
+          </div>
+          <div class="portfolio-item reveal" style="transition-delay:0.08s">
+            <img src="images/portfolio-2.jpg" alt="Building directory signage being wall-printed" loading="lazy">
+            <div class="portfolio-overlay">
+              <span data-i18n="portfolio2Tag">Corporate Signage</span>
+              <h4 data-i18n="portfolio2Title">Office Wayfinding</h4>
+              <p data-i18n="portfolio2Desc">Professional directory signage printed in-situ for a corporate campus —
+                clean, precise, and installation-ready.</p>
+            </div>
+          </div>
+          <div class="portfolio-item reveal" style="transition-delay:0.16s">
+            <img src="images/portfolio-3.jpg" alt="Vintage world map mural printed on wall" loading="lazy">
+            <div class="portfolio-overlay">
+              <span data-i18n="portfolio3Tag">Interior Décor</span>
+              <h4 data-i18n="portfolio3Title">Vintage World Map</h4>
+              <p data-i18n="portfolio3Desc">An antique-style world map mural spanning an entire lobby wall — a bold
+                statement piece for a boutique hotel.</p>
+            </div>
+          </div>
+          <div class="portfolio-item reveal" style="transition-delay:0.24s">
+            <img src="images/portfolio-4.jpg" alt="Custom printed recycling bin graphics" loading="lazy">
+            <div class="portfolio-overlay">
+              <span data-i18n="portfolio4Tag">Object Printing</span>
+              <h4 data-i18n="portfolio4Title">Custom Bin Graphics</h4>
+              <p data-i18n="portfolio4Desc">Detailed iconography and labeling printed directly onto recycling stations —
+                durable, precise, and brand-aligned.</p>
+            </div>
+          </div>
+
+          <div class="portfolio-item portfolio-video-item reveal" style="transition-delay:0.32s"
+            data-video="images/Raccoon_print.mp4">
+            <video class="portfolio-video" muted playsinline preload="auto" src="images/Raccoon_print.mp4"></video>
+            <div class="portfolio-overlay">
+              <span data-i18n="portfolioV1Tag">Wall Print</span>
+              <h4 data-i18n="portfolioV1Title">Raccoon Mural</h4>
+              <p data-i18n="portfolioV1Desc">Watch our wall printer bring a detailed raccoon illustration to life —
+                printed directly on the surface.</p>
+            </div>
+            <div class="video-play-indicator">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+            </div>
+          </div>
+          <div class="portfolio-item portfolio-video-item reveal" style="transition-delay:0.40s"
+            data-video="images/Astronaut_print.mp4">
+            <video class="portfolio-video" muted playsinline preload="auto" src="images/Astronaut_print.mp4"></video>
+            <div class="portfolio-overlay">
+              <span data-i18n="portfolioV2Tag">Wall Print</span>
+              <h4 data-i18n="portfolioV2Title">Astronaut Mural</h4>
+              <p data-i18n="portfolioV2Desc">A stunning astronaut mural printed stroke by stroke — see the precision of
+                direct wall printing in action.</p>
+            </div>
+            <div class="video-play-indicator">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+            </div>
+          </div>
+          <div class="portfolio-item portfolio-video-item reveal" style="transition-delay:0.48s"
+            data-video="images/Coffee_print.mp4">
+            <video class="portfolio-video" muted playsinline preload="auto" src="images/Coffee_print.mp4"></video>
+            <div class="portfolio-overlay">
+              <span data-i18n="portfolioV3Tag">Wall Print</span>
+              <h4 data-i18n="portfolioV3Title">Coffee Art Print</h4>
+              <p data-i18n="portfolioV3Desc">A rich coffee-themed mural — perfect for cafés and restaurants, printed
+                with precision on any wall surface.</p>
+            </div>
+            <div class="video-play-indicator">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+            </div>
+          </div>
+          <div class="portfolio-item portfolio-video-item reveal" style="transition-delay:0.56s"
+            data-video="images/Phone_box_print.mp4">
+            <video class="portfolio-video" muted playsinline preload="auto" src="images/Phone_box_print.mp4"></video>
+            <div class="portfolio-overlay">
+              <span data-i18n="portfolioV4Tag">Wall Print</span>
+              <h4 data-i18n="portfolioV4Title">Phone Box Mural</h4>
+              <p data-i18n="portfolioV4Desc">A classic London phone box — printed with vivid colors and crisp detail
+                directly on an interior wall.</p>
+            </div>
+            <div class="video-play-indicator">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+            </div>
+          </div>
+          <div class="portfolio-item portfolio-video-item reveal" style="transition-delay:0.64s"
+            data-video="images/-1_print.mp4">
+            <video class="portfolio-video" muted playsinline preload="auto" src="images/-1_print.mp4"></video>
+            <div class="portfolio-overlay">
+              <span data-i18n="portfolioV5Tag">Wall Print</span>
+              <h4 data-i18n="portfolioV5Title">Custom Print</h4>
+              <p data-i18n="portfolioV5Desc">Another stunning mural showcase — demonstrating our wall printer's
+                precision across any design style.</p>
+            </div>
+            <div class="video-play-indicator">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROCESS ===== -->
+    <section id="process">
+      <div class="container">
+        <p class="section-label reveal" data-i18n="processLabel">How It Works</p>
+        <h2 class="section-title reveal" data-i18n="processTitle">Our Process</h2>
+        <div class="process-steps">
+          <div class="process-step reveal" style="transition-delay:0.05s">
+            <div class="step-num">01</div>
+            <h3 class="step-title" data-i18n="step1Title">Consult</h3>
+            <p class="step-desc" data-i18n="step1Desc">We visit your space, take measurements, and learn about your
+              vision and goals.</p>
+          </div>
+          <div class="process-step reveal" style="transition-delay:0.15s">
+            <div class="step-num">02</div>
+            <h3 class="step-title" data-i18n="step2Title">Design</h3>
+            <p class="step-desc" data-i18n="step2Desc">Our team creates custom mockups and renders fitted to your exact
+              wall dimensions.</p>
+          </div>
+          <div class="process-step reveal" style="transition-delay:0.25s">
+            <div class="step-num">03</div>
+            <h3 class="step-title" data-i18n="step3Title">Print & Install</h3>
+            <p class="step-desc" data-i18n="step3Desc">High-resolution printing on premium materials — vibrant, durable,
+              and detail-perfect. Professional on-site installation by our crew, done in hours — not days.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="contact-info reveal">
+            <p class="section-label" data-i18n="contactLabel">Get In Touch</p>
+            <h2 data-i18n="contactHeading">Let's Make<br>Your Walls<br>Unforgettable.</h2>
+            <p data-i18n="contactDesc">Whether you've got a design ready or just an idea, we'll help you bring it to
+              life. Drop us a message and
+              we'll get back to you within 24 hours.</p>
+            <div class="contact-detail">
+              <svg viewBox="0 0 24 24">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              <span data-i18n="contactLocation">Montreal, QC — Canada</span>
+            </div>
+            <div class="contact-detail">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+              <span data-i18n="contactEmail">contact@askowallprinting.com</span>
+            </div>
+            <div class="contact-detail">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+              <span data-i18n="contactPhone">(438) 936-6478</span>
+            </div>
+          </div>
+          <form class="contact-form reveal" style="transition-delay:0.15s" id="quoteForm">
+            <div class="form-group">
+              <label for="formName" data-i18n="formName">Your Name</label>
+              <input type="text" id="formName" placeholder="Full name" required>
+            </div>
+            <div class="form-group">
+              <label for="formEmail" data-i18n="formEmail">Email Address</label>
+              <input type="email" id="formEmail" placeholder="you@email.com" required>
+            </div>
+            <div class="form-group">
+              <label for="formProject" data-i18n="formProject">Project Type</label>
+              <select id="formProject" required>
+                <option value="" disabled selected data-i18n="formProjectDefault">Select a project type</option>
+                <option value="outdoor" data-i18n="formProjectOutdoor">Outdoor Mural</option>
+                <option value="indoor" data-i18n="formProjectIndoor">Indoor Wall</option>
+                <option value="custom" data-i18n="formProjectCustom">Custom Décor</option>
+                <option value="other" data-i18n="formProjectOther">Other / Not Sure</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="formMessage" data-i18n="formMessage">Message</label>
+              <textarea id="formMessage"
+                placeholder="Tell us about your project — size, location, timeline, inspiration..." required></textarea>
+            </div>
+            <button type="submit" class="form-submit" id="formSubmitBtn" data-i18n="formSubmit">Send Quote
+              Request</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section id="faq">
+      <div class="container">
+        <p class="section-label reveal" data-i18n="faqLabel">Got Questions?</p>
+        <h2 class="section-title reveal" data-i18n="faqTitle">FAQ</h2>
+        <div class="faq-list">
+
+          <div class="faq-item reveal">
+            <button class="faq-q" data-i18n="faq1Q">What is wall printing? <span class="faq-icon">+</span></button>
+            <div class="faq-a" data-i18n="faq1A">Wall printing is a new technology that uses a vertical inkjet printer
+              to print directly
+              onto walls, floors, or other flat surfaces. Think of it like a giant printer that creates custom murals
+              with precision, vibrant color, and durability.</div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay:0.05s">
+            <button class="faq-q" data-i18n="faq2Q">Is it safe? <span class="faq-icon">+</span></button>
+            <div class="faq-a" data-i18n="faq2A">Yes. The inks are eco-friendly, odorless, and safe for kids and pets.
+              They dry quickly
+              and won't damage your walls.</div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay:0.1s">
+            <button class="faq-q" data-i18n="faq3Q">What surfaces can you print on? <span
+                class="faq-icon">+</span></button>
+            <div class="faq-a" data-i18n="faq3A">We can print on most flat indoor and outdoor surfaces, including
+              drywall, plaster, brick,
+              wood, glass, tile, and concrete. If the surface is smooth and clean, we can likely print on it.</div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay:0.15s">
+            <button class="faq-q" data-i18n="faq4Q">Can I remove or replace the mural later? <span
+                class="faq-icon">+</span></button>
+            <div class="faq-a" data-i18n="faq4A">Yes. Prints can be painted over like a normal wall. If you'd like a new
+              design, we can
+              print directly over the old one as well.</div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay:0.2s">
+            <button class="faq-q" data-i18n="faq5Q">How big can prints be? <span class="faq-icon">+</span></button>
+            <div class="faq-a" data-i18n="faq5A">There's no limit to the width — we can keep printing seamlessly across
+              large walls. The
+              maximum height is typically up to 13 feet, but extensions can be used for taller spaces.</div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay:0.25s">
+            <button class="faq-q" data-i18n="faq6Q">Do you design artwork too, or do I need to supply it? <span
+                class="faq-icon">+</span></button>
+            <div class="faq-a" data-i18n="faq6A">Both options are available. You can provide your own artwork or we can
+              help with custom
+              design services, including photo prep, graphics, and consultation.</div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay:0.3s">
+            <button class="faq-q" data-i18n="faq7Q">How durable is the print? <span class="faq-icon">+</span></button>
+            <div class="faq-a" data-i18n="faq7A">Indoor murals last 10–12 years, while outdoor prints can last 5+ years
+              depending on
+              exposure. For added protection, we can apply a clear protective coat to extend the life of your mural.
+            </div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay:0.35s">
+            <button class="faq-q" data-i18n="faq8Q">How much does it cost? <span class="faq-icon">+</span></button>
+            <div class="faq-a" data-i18n="faq8A">Pricing depends on wall size, complexity, and location. Since every
+              project is unique, we
+              provide a free custom quote after reviewing your wall and artwork.</div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay:0.4s">
+            <button class="faq-q" data-i18n="faq9Q">How long does it take? <span class="faq-icon">+</span></button>
+            <div class="faq-a" data-i18n="faq9A">Most projects can be completed in just a few hours. Larger walls or
+              multiple surfaces may
+              take a full day or more. There's no messy cleanup — once the print is done, it's ready to enjoy.</div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay:0.45s">
+            <button class="faq-q" data-i18n="faq10Q">Who are your clients? <span class="faq-icon">+</span></button>
+            <div class="faq-a" data-i18n="faq10A">We work with homeowners, gyms, schools, offices, restaurants, retail
+              stores, real estate
+              developers, and more. Anywhere there's a wall, there's an opportunity.</div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay:0.5s">
+            <button class="faq-q" data-i18n="faq11Q">Do you only print indoors? <span class="faq-icon">+</span></button>
+            <div class="faq-a" data-i18n="faq11A">No — we print indoors and outdoors. Exterior walls, garages,
+              storefronts, fences, and
+              even floors are all possible.</div>
+          </div>
+
+          <div class="faq-item reveal" style="transition-delay:0.55s">
+            <button class="faq-q" data-i18n="faq12Q">How do I book a mural? <span class="faq-icon">+</span></button>
+            <div class="faq-a" data-i18n="faq12A">Simply contact us through our website or call us to book a free
+              consultation. We'll
+              review your space, confirm artwork, and schedule your installation.</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer id="footer">
+      <div class="container footer-inner">
+        <div class="footer-logo"><img src="images/logo.png" alt="ASKO Wallprinting"></div>
+        <div class="footer-links">
+          <a href="#services" data-i18n="navServices">Services</a>
+          <a href="#portfolio" data-i18n="navPortfolio">Portfolio</a>
+          <a href="#process" data-i18n="navProcess">Process</a>
+          <a href="#contact" data-i18n="navContact">Contact</a>
+        </div>
+        <div class="footer-copy" data-i18n="footerCopy">© 2026 ASKO Wallprinting — All rights reserved.</div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+  </div><!-- end .site-wrapper -->
+
+</body>
+
+</html>
