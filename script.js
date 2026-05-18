@@ -454,7 +454,7 @@ function setLanguage(lang) {
   // FAQ
   document.querySelector('[data-i18n="faqLabel"]').textContent = t.faqLabel;
   document.querySelector('[data-i18n="faqTitle"]').textContent = t.faqTitle;
-  
+
   const faq1Q = document.querySelector('[data-i18n="faq1Q"]');
   if (faq1Q) faq1Q.innerHTML = t.faq1Q + ' <span class="faq-icon">+</span>';
   const faq1A = document.querySelector('[data-i18n="faq1A"]');
@@ -544,7 +544,7 @@ quoteForm.addEventListener('submit', (e) => {
   submitBtn.textContent = 'Sending...';
   submitBtn.style.pointerEvents = 'none';
 
-  fetch("https://formsubmit.co/ajax/Antoineskots@hotmail.com", {
+  fetch("https://formsubmit.co/ajax/websiteform@askowallprinting.com", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
