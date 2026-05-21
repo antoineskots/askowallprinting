@@ -7,6 +7,11 @@
   <title>ASKO Wall Printing Montreal | Large-Format Vertical Wall Printing & Custom Murals</title>
   <meta name="description"
     content="Montreal's wall printing studio for businesses. Custom murals, branded interior walls, and outdoor signage — printed directly on any surface. Get a free quote today.">
+
+  <!-- Hreflang tags -->
+  <link rel="alternate" hreflang="en" href="https://askowallprinting.com/" />
+  <link rel="alternate" hreflang="fr" href="https://askowallprinting.com/fr/" />
+  <link rel="canonical" href="https://askowallprinting.com/" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -22,8 +27,8 @@
   <meta property="og:title" content="ASKO Wall Printing Montreal | Custom Murals & Large-Format Wall Printing">
   <meta property="og:description"
     content="Montreal's wall printing studio for businesses. Custom murals, branded interior walls, and outdoor signage. Get a free quote.">
-  <meta property="og:image" content="https://yourdomain.com/images/portfolio-1.jpg">
-  <meta property="og:url" content="https://yourdomain.com">
+  <meta property="og:image" content="https://askowallprinting.com/images/portfolio-1.jpg">
+  <meta property="og:url" content="https://askowallprinting.com">
   <meta property="og:type" content="website">
 
   <!-- Structured Data (helps Google show your business info in results) -->
@@ -33,7 +38,7 @@
   "@type": "LocalBusiness",
   "name": "ASKO Wall Printing",
   "description": "Montreal-based wall printing studio specializing in custom murals, branded interior walls, and outdoor signage.",
-  "url": "https://yourdomain.com",
+  "url": "https://askowallprinting.com",
   "telephone": "(438) 936-6478",
   "email": "contact@askowallprinting.com",
   "address": {
@@ -67,29 +72,16 @@
           <li><a href="#contact" onclick="closeNav()" data-i18n="navContact">Contact</a></li>
         </ul>
         <div class="nav-right">
-          <!-- Language Picker -->
-          <div class="lang-picker" id="langPicker">
-            <button class="lang-btn" id="langBtn" type="button" aria-label="Select language">
-              <svg viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" />
-                <line x1="2" y1="12" x2="22" y2="12" />
-                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-              </svg>
-              <span id="langLabel">EN</span>
-              <svg viewBox="0 0 24 24" style="width:10px;height:10px">
-                <polyline points="6 9 12 15 18 9" />
-              </svg>
-            </button>
-            <div class="lang-dropdown">
-              <div class="lang-option active" data-lang="en">
-                <span class="lang-flag">EN</span> English
-              </div>
-              <div class="lang-option" data-lang="fr">
-                <span class="lang-flag">FR</span> Français
-              </div>
-            </div>
-          </div>
-          <a href="#contact" class="nav-cta nav-cta-desktop" data-i18n="navCta">Get a Quote</a>
+          <!-- Language Switcher — links to French version -->
+          <a href="/fr/" class="lang-switch-link" aria-label="Passer au français">
+            <svg viewBox="0 0 24 24" class="lang-switch-icon">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="2" y1="12" x2="22" y2="12" />
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+            <span>FR</span>
+          </a>
+          <a href="#contact" class="nav-cta nav-cta-desktop">Get a Quote</a>
         </div>
         <div class="nav-toggle" id="navToggle" onclick="toggleNav()">
           <span></span><span></span><span></span>
@@ -612,6 +604,20 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <!-- Auto-redirect French-speaking users on first visit -->
+    <script>
+      (function() {
+        // Only redirect if not already redirected this session
+        if (sessionStorage.getItem('langRedirected')) return;
+        // Check browser language
+        var lang = navigator.language || navigator.userLanguage || '';
+        if (lang.toLowerCase().startsWith('fr')) {
+          sessionStorage.setItem('langRedirected', 'true');
+          window.location.replace('/fr/');
+        }
+      })();
+    </script>
 
   </div><!-- end .site-wrapper -->
 
