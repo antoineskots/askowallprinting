@@ -173,19 +173,28 @@ document.querySelectorAll('.faq-q').forEach(btn => {
 /* ===== PORTFOLIO INTERACTION ===== */
 (function () {
   const allPortfolioItems = document.querySelectorAll('.portfolio-item');
-  const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
   allPortfolioItems.forEach(item => {
     const video = item.querySelector('.portfolio-video');
     let restartTimeout = null;
     let isHovering = false;
 
+    // Helper to safely reset video to the final frame preview
+    function resetToPreview() {
+      if (video && video.duration) {
+        video.currentTime = Math.max(0, video.duration - 0.1);
+      }
+    }
+
     if (video) {
-      // When metadata is loaded, seek to the last frame as preview (only on desktop to avoid mobile black screen)
+      // When metadata is loaded, seek to the last frame as preview
       video.addEventListener('loadedmetadata', () => {
-        if (!isTouchDevice) {
-          video.currentTime = Math.max(0, video.duration - 0.1);
-        }
+        resetToPreview();
+      });
+
+      // Also seek when video data is loaded to ensure it renders on mobile devices
+      video.addEventListener('loadeddata', () => {
+        resetToPreview();
       });
 
       // Video ended while hovering/active — pause on last frame, then restart after delay
@@ -201,7 +210,7 @@ document.querySelectorAll('.faq-q').forEach(btn => {
       });
     }
 
-    // Mouse enter — start playing from the beginning (desktop only)
+    // Mouse enter — start playing from the beginning
     item.addEventListener('mouseenter', () => {
       isHovering = true;
       if (video) {
@@ -212,7 +221,7 @@ document.querySelectorAll('.faq-q').forEach(btn => {
       }
     });
 
-    // Mouse leave — pause, clean touch state, and show last frame preview
+    // Mouse leave — pause, clean touch state, and revert to preview
     item.addEventListener('mouseleave', () => {
       isHovering = false;
       item.classList.remove('touch-active');
@@ -220,20 +229,15 @@ document.querySelectorAll('.faq-q').forEach(btn => {
         clearTimeout(restartTimeout);
         video.pause();
         item.classList.remove('playing');
-        // Seek back to last frame for preview (desktop only)
-        if (video.duration && !isTouchDevice) {
-          video.currentTime = Math.max(0, video.duration - 0.1);
-        }
+        resetToPreview();
       }
     });
 
-    // Click / Touch toggle (mobile only)
+    // Click / Touch toggle
     item.addEventListener('click', (e) => {
-      if (!isTouchDevice) return;
-
       const isCurrentlyActive = item.classList.contains('touch-active');
 
-      // Close and pause all other items
+      // Close and pause/reset all other items
       allPortfolioItems.forEach(otherItem => {
         if (otherItem !== item) {
           otherItem.classList.remove('touch-active');
@@ -241,6 +245,9 @@ document.querySelectorAll('.faq-q').forEach(btn => {
           if (otherVideo) {
             otherVideo.pause();
             otherItem.classList.remove('playing');
+            if (otherVideo.duration) {
+              otherVideo.currentTime = Math.max(0, otherVideo.duration - 0.1);
+            }
           }
         }
       });
@@ -251,6 +258,7 @@ document.querySelectorAll('.faq-q').forEach(btn => {
         if (video) {
           video.pause();
           item.classList.remove('playing');
+          resetToPreview();
         }
       } else {
         item.classList.add('touch-active');
