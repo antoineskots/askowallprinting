@@ -185,36 +185,48 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     let restartTimeout = null;
     let isHovering = false;
 
-    // Helper to safely reset video to the final frame preview and force mobile render
-    function resetToPreview() {
-      if (video && video.duration) {
-        video.currentTime = Math.max(0, video.duration - 0.5);
-        // Play and immediately pause to force mobile Safari/Chrome to paint/render the frame
-        video.play().then(() => {
+    // Helper to pause the video, clean class list, and seek to the preview frame safely (prevents play/pause race conditions)
+    function pauseAndResetToPreview() {
+      clearTimeout(restartTimeout);
+      item.classList.remove('playing');
+
+      if (video) {
+        if (video.duration) {
+          video.currentTime = Math.max(0, video.duration - 0.5);
+          // Play and pause to force mobile Safari/Chrome to render/paint the seeked frame
+          video.play().then(() => {
+            video.pause();
+          }).catch(() => {
+            video.pause();
+          });
+        } else {
           video.pause();
-        }).catch(() => {});
+        }
       }
     }
+
+    // Expose the helper so sibling items can reset this video cleanly on tap switch
+    item.pauseAndReset = pauseAndResetToPreview;
 
     if (video) {
       // When metadata is loaded, seek to the last frame as preview (only if not active/hovered)
       video.addEventListener('loadedmetadata', () => {
         if (!isHovering && !item.classList.contains('touch-active')) {
-          resetToPreview();
+          pauseAndResetToPreview();
         }
       });
 
       // Also seek when video data is loaded to ensure it renders on mobile devices
       video.addEventListener('loadeddata', () => {
         if (!isHovering && !item.classList.contains('touch-active')) {
-          resetToPreview();
+          pauseAndResetToPreview();
         }
       });
 
       // Listen for duration changes (e.g. if duration was initially NaN)
       video.addEventListener('durationchange', () => {
         if (!isHovering && !item.classList.contains('touch-active')) {
-          resetToPreview();
+          pauseAndResetToPreview();
         }
       });
 
@@ -228,7 +240,7 @@ document.querySelectorAll('.faq-q').forEach(btn => {
             }
           }, 1500);
         } else {
-          resetToPreview();
+          pauseAndResetToPreview();
         }
       });
     }
@@ -248,12 +260,7 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     item.addEventListener('mouseleave', () => {
       isHovering = false;
       item.classList.remove('touch-active');
-      if (video) {
-        clearTimeout(restartTimeout);
-        video.pause();
-        item.classList.remove('playing');
-        resetToPreview();
-      }
+      pauseAndResetToPreview();
     });
 
     // Click / Touch toggle (touch screen taps only)
@@ -268,16 +275,8 @@ document.querySelectorAll('.faq-q').forEach(btn => {
       allPortfolioItems.forEach(otherItem => {
         if (otherItem !== item) {
           otherItem.classList.remove('touch-active');
-          const otherVideo = otherItem.querySelector('.portfolio-video');
-          if (otherVideo) {
-            otherVideo.pause();
-            otherItem.classList.remove('playing');
-            if (otherVideo.duration) {
-              otherVideo.currentTime = Math.max(0, otherVideo.duration - 0.5);
-              otherVideo.play().then(() => {
-                otherVideo.pause();
-              }).catch(() => {});
-            }
+          if (otherItem.pauseAndReset) {
+            otherItem.pauseAndReset();
           }
         }
       });
@@ -286,11 +285,7 @@ document.querySelectorAll('.faq-q').forEach(btn => {
       if (isCurrentlyActive) {
         item.classList.remove('touch-active');
         isHovering = false; // Reset hovering state on touch closing
-        if (video) {
-          video.pause();
-          item.classList.remove('playing');
-          resetToPreview();
-        }
+        pauseAndResetToPreview();
       } else {
         item.classList.add('touch-active');
         if (video) {
