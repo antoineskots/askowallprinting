@@ -173,6 +173,12 @@ document.querySelectorAll('.faq-q').forEach(btn => {
 /* ===== PORTFOLIO INTERACTION ===== */
 (function () {
   const allPortfolioItems = document.querySelectorAll('.portfolio-item');
+  let lastTouchTime = 0;
+
+  // Track touchstart events to distinguish touchscreen taps from mouse clicks
+  window.addEventListener('touchstart', () => {
+    lastTouchTime = Date.now();
+  }, { passive: true });
 
   allPortfolioItems.forEach(item => {
     const video = item.querySelector('.portfolio-video');
@@ -181,7 +187,7 @@ document.querySelectorAll('.faq-q').forEach(btn => {
 
     // Helper to safely reset video to the final frame preview and force mobile render
     function resetToPreview() {
-      if (video && video.duration && !isHovering && !item.classList.contains('touch-active')) {
+      if (video && video.duration) {
         video.currentTime = Math.max(0, video.duration - 0.5);
         // Play and immediately pause to force mobile Safari/Chrome to paint/render the frame
         video.play().then(() => {
@@ -191,19 +197,25 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     }
 
     if (video) {
-      // When metadata is loaded, seek to the last frame as preview
+      // When metadata is loaded, seek to the last frame as preview (only if not active/hovered)
       video.addEventListener('loadedmetadata', () => {
-        resetToPreview();
+        if (!isHovering && !item.classList.contains('touch-active')) {
+          resetToPreview();
+        }
       });
 
       // Also seek when video data is loaded to ensure it renders on mobile devices
       video.addEventListener('loadeddata', () => {
-        resetToPreview();
+        if (!isHovering && !item.classList.contains('touch-active')) {
+          resetToPreview();
+        }
       });
 
       // Listen for duration changes (e.g. if duration was initially NaN)
       video.addEventListener('durationchange', () => {
-        resetToPreview();
+        if (!isHovering && !item.classList.contains('touch-active')) {
+          resetToPreview();
+        }
       });
 
       // Video ended while hovering/active — pause on last frame, then restart after delay
@@ -244,8 +256,12 @@ document.querySelectorAll('.faq-q').forEach(btn => {
       }
     });
 
-    // Click / Touch toggle
+    // Click / Touch toggle (touch screen taps only)
     item.addEventListener('click', (e) => {
+      // Ignore simulated mouse clicks on desktop/laptop unless they are actual touchscreen taps
+      const isTouchClick = (Date.now() - lastTouchTime) < 1000;
+      if (!isTouchClick) return;
+
       const isCurrentlyActive = item.classList.contains('touch-active');
 
       // Close and pause/reset all other items
@@ -269,6 +285,7 @@ document.querySelectorAll('.faq-q').forEach(btn => {
       // Toggle current item
       if (isCurrentlyActive) {
         item.classList.remove('touch-active');
+        isHovering = false; // Reset hovering state on touch closing
         if (video) {
           video.pause();
           item.classList.remove('playing');
