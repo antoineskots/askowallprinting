@@ -179,10 +179,14 @@ document.querySelectorAll('.faq-q').forEach(btn => {
     let restartTimeout = null;
     let isHovering = false;
 
-    // Helper to safely reset video to the final frame preview
+    // Helper to safely reset video to the final frame preview and force mobile render
     function resetToPreview() {
-      if (video && video.duration) {
-        video.currentTime = Math.max(0, video.duration - 0.1);
+      if (video && video.duration && !isHovering && !item.classList.contains('touch-active')) {
+        video.currentTime = Math.max(0, video.duration - 0.5);
+        // Play and immediately pause to force mobile Safari/Chrome to paint/render the frame
+        video.play().then(() => {
+          video.pause();
+        }).catch(() => {});
       }
     }
 
@@ -197,6 +201,11 @@ document.querySelectorAll('.faq-q').forEach(btn => {
         resetToPreview();
       });
 
+      // Listen for duration changes (e.g. if duration was initially NaN)
+      video.addEventListener('durationchange', () => {
+        resetToPreview();
+      });
+
       // Video ended while hovering/active — pause on last frame, then restart after delay
       video.addEventListener('ended', () => {
         if (isHovering || item.classList.contains('touch-active')) {
@@ -206,6 +215,8 @@ document.querySelectorAll('.faq-q').forEach(btn => {
               video.play().catch(() => { });
             }
           }, 1500);
+        } else {
+          resetToPreview();
         }
       });
     }
@@ -246,7 +257,10 @@ document.querySelectorAll('.faq-q').forEach(btn => {
             otherVideo.pause();
             otherItem.classList.remove('playing');
             if (otherVideo.duration) {
-              otherVideo.currentTime = Math.max(0, otherVideo.duration - 0.1);
+              otherVideo.currentTime = Math.max(0, otherVideo.duration - 0.5);
+              otherVideo.play().then(() => {
+                otherVideo.pause();
+              }).catch(() => {});
             }
           }
         }
