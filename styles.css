@@ -265,6 +265,7 @@ textarea {
 .site-wrapper {
     position: relative;
     min-height: 100vh;
+    overflow-x: clip;
 }
 
 .hero-cmyk {
@@ -731,7 +732,8 @@ textarea {
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
 }
 
-.portfolio-item:hover img {
+.portfolio-item:hover img,
+.portfolio-item.touch-active img {
     transform: scale(1.08);
     filter: brightness(0.4);
 }
@@ -749,7 +751,8 @@ textarea {
     z-index: 2;
 }
 
-.portfolio-item:hover .portfolio-overlay {
+.portfolio-item:hover .portfolio-overlay,
+.portfolio-item.touch-active .portfolio-overlay {
     opacity: 1;
     transform: translateY(0);
 }
@@ -795,7 +798,8 @@ textarea {
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.6s ease;
 }
 
-.portfolio-video-item:hover .portfolio-video {
+.portfolio-video-item:hover .portfolio-video,
+.portfolio-video-item.touch-active .portfolio-video {
     transform: scale(1.08);
     filter: brightness(0.4);
 }
@@ -828,7 +832,8 @@ textarea {
     margin-left: 2px;
 }
 
-.portfolio-video-item:hover .video-play-indicator {
+.portfolio-video-item:hover .video-play-indicator,
+.portfolio-video-item.touch-active .video-play-indicator {
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
 }
@@ -1293,6 +1298,14 @@ textarea {
 }
 
 @media (max-width: 480px) {
+    .nav-logo img {
+        height: 3rem;
+    }
+
+    #navbar.scrolled .nav-logo img {
+        height: 2.2rem;
+    }
+
     .hero-btns {
         flex-direction: column;
     }

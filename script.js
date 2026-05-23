@@ -170,50 +170,96 @@ document.querySelectorAll('.faq-q').forEach(btn => {
   });
 })();
 
-/* ===== PORTFOLIO VIDEO HOVER ===== */
+/* ===== PORTFOLIO INTERACTION ===== */
 (function () {
-  const videoItems = document.querySelectorAll('.portfolio-video-item');
+  const allPortfolioItems = document.querySelectorAll('.portfolio-item');
+  const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-  videoItems.forEach(item => {
+  allPortfolioItems.forEach(item => {
     const video = item.querySelector('.portfolio-video');
     let restartTimeout = null;
     let isHovering = false;
 
-    // When metadata is loaded, seek to the last frame as preview
-    video.addEventListener('loadedmetadata', () => {
-      video.currentTime = Math.max(0, video.duration - 0.1);
-    });
+    if (video) {
+      // When metadata is loaded, seek to the last frame as preview (only on desktop to avoid mobile black screen)
+      video.addEventListener('loadedmetadata', () => {
+        if (!isTouchDevice) {
+          video.currentTime = Math.max(0, video.duration - 0.1);
+        }
+      });
 
-    // Mouse enter — start playing from the beginning
+      // Video ended while hovering/active — pause on last frame, then restart after delay
+      video.addEventListener('ended', () => {
+        if (isHovering || item.classList.contains('touch-active')) {
+          restartTimeout = setTimeout(() => {
+            if (isHovering || item.classList.contains('touch-active')) {
+              video.currentTime = 0;
+              video.play().catch(() => { });
+            }
+          }, 1500);
+        }
+      });
+    }
+
+    // Mouse enter — start playing from the beginning (desktop only)
     item.addEventListener('mouseenter', () => {
       isHovering = true;
-      clearTimeout(restartTimeout);
-      video.currentTime = 0;
-      video.play().catch(() => { });
-      item.classList.add('playing');
-    });
-
-    // Mouse leave — pause and show last frame preview
-    item.addEventListener('mouseleave', () => {
-      isHovering = false;
-      clearTimeout(restartTimeout);
-      video.pause();
-      item.classList.remove('playing');
-      // Seek back to last frame for preview
-      if (video.duration) {
-        video.currentTime = Math.max(0, video.duration - 0.1);
+      if (video) {
+        clearTimeout(restartTimeout);
+        video.currentTime = 0;
+        video.play().catch(() => { });
+        item.classList.add('playing');
       }
     });
 
-    // Video ended while hovering — pause on last frame, then restart after delay
-    video.addEventListener('ended', () => {
-      if (isHovering) {
-        restartTimeout = setTimeout(() => {
-          if (isHovering) {
-            video.currentTime = 0;
-            video.play().catch(() => { });
+    // Mouse leave — pause, clean touch state, and show last frame preview
+    item.addEventListener('mouseleave', () => {
+      isHovering = false;
+      item.classList.remove('touch-active');
+      if (video) {
+        clearTimeout(restartTimeout);
+        video.pause();
+        item.classList.remove('playing');
+        // Seek back to last frame for preview (desktop only)
+        if (video.duration && !isTouchDevice) {
+          video.currentTime = Math.max(0, video.duration - 0.1);
+        }
+      }
+    });
+
+    // Click / Touch toggle (mobile only)
+    item.addEventListener('click', (e) => {
+      if (!isTouchDevice) return;
+
+      const isCurrentlyActive = item.classList.contains('touch-active');
+
+      // Close and pause all other items
+      allPortfolioItems.forEach(otherItem => {
+        if (otherItem !== item) {
+          otherItem.classList.remove('touch-active');
+          const otherVideo = otherItem.querySelector('.portfolio-video');
+          if (otherVideo) {
+            otherVideo.pause();
+            otherItem.classList.remove('playing');
           }
-        }, 1500);
+        }
+      });
+
+      // Toggle current item
+      if (isCurrentlyActive) {
+        item.classList.remove('touch-active');
+        if (video) {
+          video.pause();
+          item.classList.remove('playing');
+        }
+      } else {
+        item.classList.add('touch-active');
+        if (video) {
+          clearTimeout(restartTimeout);
+          video.currentTime = 0;
+          video.play().catch(() => { });
+          item.classList.add('playing');
+        }
       }
     });
   });
