@@ -39,7 +39,7 @@ quoteForm.addEventListener('submit', (e) => {
   submitBtn.textContent = 'Sending...';
   submitBtn.style.pointerEvents = 'none';
 
-  fetch("https://formsubmit.co/ajax/websiteform@askowallprinting.com", {
+  fetch("https://formsubmit.co/ajax/antoineskots@hotmail.com", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json',
