@@ -40,7 +40,7 @@ if (quoteForm && submitBtn) {
     submitBtn.textContent = 'Sending...';
     submitBtn.style.pointerEvents = 'none';
 
-    fetch("https://formsubmit.co/ajax/antoineskots@hotmail.com", {
+    fetch("https://formsubmit.co/ajax/contact@askowallprinting.com", {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -62,7 +62,7 @@ if (quoteForm && submitBtn) {
           submitBtn.style.background = '';
           submitBtn.style.pointerEvents = '';
           quoteForm.reset();
-          
+
           // Redirect to language-specific success page
           if (document.documentElement.lang === 'fr') {
             window.location.href = 'merci.html';
