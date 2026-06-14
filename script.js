@@ -32,48 +32,57 @@ reveals.forEach(el => revealObserver.observe(el));
 /* ===== FORM HANDLING ===== */
 const quoteForm = document.getElementById('quoteForm');
 const submitBtn = document.getElementById('formSubmitBtn');
-quoteForm.addEventListener('submit', (e) => {
-  e.preventDefault();
+if (quoteForm && submitBtn) {
+  quoteForm.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-  const originalText = submitBtn.textContent;
-  submitBtn.textContent = 'Sending...';
-  submitBtn.style.pointerEvents = 'none';
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.style.pointerEvents = 'none';
 
-  fetch("https://formsubmit.co/ajax/antoineskots@hotmail.com", {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      Name: document.getElementById('formName').value,
-      Email: document.getElementById('formEmail').value,
-      Project_Type: document.getElementById('formProject').value,
-      Message: document.getElementById('formMessage').value
+    fetch("https://formsubmit.co/ajax/antoineskots@hotmail.com", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        Name: document.getElementById('formName').value,
+        Email: document.getElementById('formEmail').value,
+        Project_Type: document.getElementById('formProject').value,
+        Message: document.getElementById('formMessage').value
+      })
     })
-  })
-    .then(response => response.json())
-    .then(data => {
-      submitBtn.textContent = 'Sent ✓';
-      submitBtn.style.background = '#2a9d3a';
-      setTimeout(() => {
-        submitBtn.textContent = originalText;
-        submitBtn.style.background = '';
-        submitBtn.style.pointerEvents = '';
-        quoteForm.reset();
-      }, 3000);
-    })
-    .catch(error => {
-      console.error(error);
-      submitBtn.textContent = 'Error!';
-      submitBtn.style.background = '#e8400c';
-      setTimeout(() => {
-        submitBtn.textContent = originalText;
-        submitBtn.style.background = '';
-        submitBtn.style.pointerEvents = '';
-      }, 3000);
-    });
-});
+      .then(response => response.json())
+      .then(data => {
+        submitBtn.textContent = 'Sent ✓';
+        submitBtn.style.background = '#2a9d3a';
+        setTimeout(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.style.background = '';
+          submitBtn.style.pointerEvents = '';
+          quoteForm.reset();
+          
+          // Redirect to language-specific success page
+          if (document.documentElement.lang === 'fr') {
+            window.location.href = 'merci.html';
+          } else {
+            window.location.href = 'thank-you.html';
+          }
+        }, 1000);
+      })
+      .catch(error => {
+        console.error(error);
+        submitBtn.textContent = 'Error!';
+        submitBtn.style.background = '#e8400c';
+        setTimeout(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.style.background = '';
+          submitBtn.style.pointerEvents = '';
+        }, 3000);
+      });
+  });
+}
 
 /* ===== SMOOTH ANCHOR SCROLLING ===== */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -101,11 +110,14 @@ document.querySelectorAll('.faq-q').forEach(btn => {
 /* ===== CMYK STREAK SPAWNER ===== */
 (function () {
   const cmykContainer = document.getElementById('heroCmyk');
+  if (!cmykContainer) return;
   const colors = [
     { bg: '#e8400c', name: 'orange' },
     { bg: '#f5a623', name: 'amber' },
     { bg: '#f5c842', name: 'gold' }
   ];
+
+  const isThankYou = document.getElementById('thank-you') !== null;
 
   function rand(min, max) { return Math.random() * (max - min) + min; }
 
@@ -158,15 +170,18 @@ document.querySelectorAll('.faq-q').forEach(btn => {
 
   function scheduleNext() {
     spawnStreak();
-    setTimeout(scheduleNext, rand(500, 1500));
+    const nextDelay = isThankYou ? rand(4000, 8000) : rand(500, 1500);
+    setTimeout(scheduleNext, nextDelay);
   }
 
   // Wait for full page load so scrollHeight is accurate
   window.addEventListener('load', () => {
-    for (let i = 0; i < 12; i++) {
+    const spawnCount = isThankYou ? 2 : 12;
+    for (let i = 0; i < spawnCount; i++) {
       setTimeout(spawnStreak, i * 250);
     }
-    setTimeout(scheduleNext, 3500);
+    const initialDelay = isThankYou ? 6000 : 3500;
+    setTimeout(scheduleNext, initialDelay);
   });
 })();
 
